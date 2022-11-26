@@ -37,17 +37,7 @@ if __name__ == "__main__":
     cursor = db_connection.cursor()
     create_table(
         cursor,
-        """CREATE TABLE IF NOT EXISTS songs (
-                                artist TEXT,
-                                song TEXT,
-                                duration_ms INTEGER,
-                                explicit BOOL,
-                                danceability FLOAT,
-                                mode FLOAT,
-                                );""",
-    )
-    
-    """CREATE TABLE IF NOT EXISTS songs (
+        """CREATE TABLE IF NOT EXISTS sings (
                                 artist TEXT,
                                 song TEXT,
                                 duration_ms INTEGER,
@@ -66,15 +56,18 @@ if __name__ == "__main__":
                                 valence FLOAT,
                                 tempo FLOAT,
                                 genre TEXT
-                                );"""
-    cursor.execute(
-        "DELETE FROM songs;",
+                                );""",
     )
-    add_data_to_db(cursor, "spotify_data_test.csv", "songs", 7)
+    
+    
+    cursor.execute(
+        "DELETE FROM sings;",
+    )
+    add_data_to_db(cursor, "spotify_data.csv", "sings", 18)
 
 
     # store it in a pandas dataframe
-    surveys_df = pd.read_sql_query("SELECT * from songs WHERE explicit = 'TRUE'", db_connection)
+    surveys_df = pd.read_sql_query("SELECT * from sings WHERE explicit = 'TRUE'", db_connection)
     print(surveys_df)
 
     db_connection.commit()
